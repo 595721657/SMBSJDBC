@@ -1,0 +1,15 @@
+eclipse.preferences.version=1
+encoding//resources/datasource.properties=UTF-8
+encoding//src/com/dragon/controller/bill/BillController.java=UTF-8
+encoding//src/com/dragon/controller/provider/ProviderController.java=UTF-8
+encoding//src/com/dragon/controller/user/UserController.java=UTF-8
+encoding//src/com/dragon/dao/BaseDao.java=UTF-8
+encoding//src/com/dragon/dao/bill/BillDao.java=UTF-8
+encoding//src/com/dragon/dao/provider/ProviderDao.java=UTF-8
+encoding//src/com/dragon/pojo/Bill.java=UTF-8
+encoding//src/com/dragon/pojo/Provider.java=UTF-8
+encoding//src/com/dragon/pojo/Role.java=UTF-8
+encoding//src/com/dragon/pojo/User.java=UTF-8
+encoding//src/com/dragon/service/bill/BillServiceImpl.java=UTF-8
+encoding//src/com/dragon/service/provider/ProviderService.java=UTF-8
+encoding//src/com/dragon/service/provider/ProviderServiceImpl.java=UTF-8
