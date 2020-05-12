@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import com.mysql.jdbc.StringUtils;
 
 import com.dragon.pojo.Bill;
 import com.dragon.pojo.Provider;
+import com.dragon.pojo.User;
 import com.dragon.service.bill.BillService;
 import com.dragon.service.provider.ProviderService;
 
@@ -36,11 +38,11 @@ public class BillController {
 	public String query(@RequestParam(name="queryProductName",required = false) String queryProductName,
 			@RequestParam(name="queryProviderId",required = false) String queryProviderId,
 			@RequestParam(name="queryIsPayment",required = false) String queryIsPayment,
-			Model model) {
+			Model model,HttpServletRequest req) {
 		//声明一个供应商集合
 		List<Provider> providerList = new ArrayList<Provider>();	
 		providerList = providerService.getProviderList("","");
-		model.addAttribute("providerList", providerList);
+		req.setAttribute("providerList", providerList);
 		if(StringUtils.isNullOrEmpty(queryProductName)){
 			queryProductName = "";
 		}
@@ -88,5 +90,57 @@ public class BillController {
 			//增加失败
 			return "billadd";
 		}
+	}
+	
+	//通过id查询订单信息的方法
+	@RequestMapping(value = "/view.html",method = RequestMethod.GET)
+	public String FindById(@RequestParam("billid") String billid,HttpServletRequest req) {
+		 //通过id查询数据的方法
+		 Bill bill=billService.getBillById(billid);
+		 //保存到作用域
+		 req.setAttribute("bill", bill);
+		 return "billview";
+	}
+	
+	//修改跳转页面
+	@RequestMapping(value="/updatebill.html",method=RequestMethod.GET)
+	public String updateUser(@ModelAttribute("bill") Bill bill,HttpServletRequest req,@RequestParam("billid") String billid){
+		 //通过id查询数据的方法
+		 Bill bills=billService.getBillById(billid);
+		 List<Provider> provider=providerService.getProviderList("", "");
+		 //保存到作用域
+		 req.setAttribute("bills", bills);
+		 req.setAttribute("provider", provider);
+		return "billmodify";
+	}
+	
+	//修改订单的方法
+	@RequestMapping(value="/billmodify.html",method=RequestMethod.POST)
+	public String userModify(Bill bill,HttpSession session) {
+		int modifyid=((User)session.getAttribute("loginuser")).getId();
+		//为修改建者和修改时间赋值
+		bill.setModifyBy(modifyid);
+		bill.setModifyDate(new Date());
+		//调用修改的方法
+		boolean isOk=billService.modify(bill);
+		//修改成功
+		if(isOk) {
+			//实现页面跳转
+			return "redirect:billlist.html";
+		}else {
+			return "redirect:updatebill.html?billid="+bill.getId().toString();
+		}
+	}
+	
+	//删除订单的方法
+	@RequestMapping(value = "/delbill.html",method = RequestMethod.GET)
+	public String delUser(@RequestParam("billid") String billid) {
+		//删除成功
+		if(billService.deleteBillById(billid)) {
+			return "redirect:billlist.html";
+		}else {
+			//删除失败
+			return "redirect:billlist.html";
+		}		
 	}
 }

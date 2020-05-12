@@ -8,7 +8,7 @@
             <span>用户管理页面 >> 用户添加页面</span>
         </div>
         <div class="providerAdd">
-            <form id="userForm" name="userForm" method="post" action="${ctx }/user/usersave.html">
+            <form id="userForm" enctype="multipart/form-data" name="userForm" method="post" action="${ctx }/user/usersave.html">
 				<input type="hidden" name="method" value="add">
                 <!--div的class 为error是验证错误，ok是验证成功-->
                 <div>
@@ -57,13 +57,25 @@
                 <div>
                     <label >用户角色：</label>
                     <!-- 列出所有的角色分类 -->
-					<!-- <select name="userRole" id="userRole"></select> -->
-	        		<select name="userRole">
+					<select name="userRole" id="userRole"></select>
+	        		<!-- <select name="userRole">
 	        			<option value="1">系统管理员</option>
 	        			<option value="2">经理</option>
 	        			<option value="3" selected="selected">普通员工</option>
-	        		</select>
+	        		</select> -->
 	        		<font color="red"></font>
+                </div>
+                <div>
+                    <input type="hidden" value="${error }" id="errorInfo"/>
+                    <label for="a_idPicPath">证件照：</label>
+                    <input type="file" name="attchs" id="a_idPicPath"/>
+                    <font color="red"></font>
+                </div>
+                <div>
+                    <input type="hidden" value="${error }" id="workInfo"/>
+                    <label for="a_workpicpath">工作证件：</label>
+                    <input type="file" name="attchs" id="a_workpicpath"/>
+                    <font color="red"></font>
                 </div>
                 <div class="providerAddBtn">
                     <input type="button" name="add" id="add" value="保存" >

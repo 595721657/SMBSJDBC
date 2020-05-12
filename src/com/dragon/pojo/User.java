@@ -2,24 +2,50 @@ package com.dragon.pojo;
 
 import java.util.Date;
 
+import javax.validation.constraints.Past;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.alibaba.fastjson.annotation.JSONField;
 
 public class User {
 	private Integer id; //id 
-	private String userCode; //鐢ㄦ埛缂栫爜
-	private String userName; //鐢ㄦ埛鍚嶇О
-	private String userPassword; //鐢ㄦ埛瀵嗙爜
-	private Integer gender;  //鎬у埆
+	@NotEmpty(message = "用户编码必给")
+	private String userCode; //用户编码
+	@NotEmpty(message = "用户名必须给")
+	private String userName; //用户名
+	@Length(min=6,max=12,message = "密码长度必须在6到12位")
+	private String userPassword; //密码
+	private Integer gender;  //性别
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date birthday;  //鍑虹敓鏃ユ湡
-	private String phone;   //鐢佃瘽
-	private String address; //鍦板潃
-	private Integer userRole;    //鐢ㄦ埛瑙掕壊
-	private Integer createdBy;   //鍒涘缓鑰�
-	private Date creationDate; //鍒涘缓鏃堕棿
-	private Integer modifyBy;     //鏇存柊鑰�
-	private Date modifyDate;   //鏇存柊鏃堕棿
+	@Past(message = "出生日期必须是一个过去的时间")
+	@JSONField(format="yyyy-MM-dd")
+	private Date birthday;  //生日
+	private String phone;   //电话
+	private String address; //地址
+	private Integer userRole;    //角色编号
+	private Integer createdBy;   //创建者
+	private Date creationDate; //创建日期
+	private Integer modifyBy;     //修改者
+	private Date modifyDate;   //修改日期
+	private String idpicpath;//证件照
+	private String workpicpath;//工作证照
 	
+	public String getIdpicpath() {
+		return idpicpath;
+	}
+	public void setIdpicpath(String idpicpath) {
+		this.idpicpath = idpicpath;
+	}
+	public String getWorkpicpath() {
+		return workpicpath;
+	}
+	public void setWorkpicpath(String workpicpath) {
+		this.workpicpath = workpicpath;
+	}
+	@SuppressWarnings("unused")
 	private Integer age;//骞撮緞
 	
 	private String userRoleName;    //鐢ㄦ埛瑙掕壊鍚嶇О
@@ -35,6 +61,7 @@ public class User {
 		/*long time = System.currentTimeMillis()-birthday.getTime();
 		Integer age = Long.valueOf(time/365/24/60/60/1000).IntegerValue();*/
 		Date date = new Date();
+		@SuppressWarnings("deprecation")
 		Integer age = date.getYear()-birthday.getYear();
 		return age;
 	}

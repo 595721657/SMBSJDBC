@@ -17,7 +17,7 @@
     <header class="publicHeader">
         <h1>超市订单管理系统</h1>
         <div class="publicHeaderR">
-            <p><span>下午好！</span><span style="color: #fff21b"> ${user.userName }</span> , 欢迎你！</p>
+            <p><span>下午好！</span><span style="color: #fff21b"> ${loginuser.userName }</span> , 欢迎你！</p>
             <a href="${ctx }/user/Loginout">退出</a>
         </div>
     </header>
@@ -32,13 +32,13 @@
          <h2 class="leftH2"><span class="span1"></span>功能列表 <span></span></h2>
          <nav>
              <ul class="list">
-                 <li ><a href="${ctx}/bill/billlist.html">订单管理</a></li>
+              <li ><a href="${ctx}/bill/billlist.html">订单管理</a></li>
               <li><a href="${ctx }/provider/providerlist.html">供应商管理</a></li>
               <li><a href="${ctx}/user/userlist.html">用户管理</a></li>
-              <li><a href="${ctx}/jsp/pwdmodify.jsp">密码修改</a></li>
+              <li><a href="${ctx}/user/pwdmodify.html">密码修改</a></li>
               <li><a href="${ctx }/user/Loginout">退出系统</a></li>
              </ul>
          </nav>
      </div>
-     <input type="hidden" id="path" name="path" value="${ctx }/static"/>
+     <input type="hidden" id="path" name="path" value="${ctx }"/>
      <input type="hidden" id="referer" name="referer" value="<%=request.getHeader("Referer")%>"/>

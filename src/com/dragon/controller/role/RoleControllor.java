@@ -9,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONArray;
 import com.dragon.pojo.Bill;
 import com.dragon.pojo.Provider;
 import com.dragon.pojo.Role;
@@ -19,6 +21,7 @@ import com.mysql.jdbc.StringUtils;
 //角色的controller
 @Controller
 //角色板块
+@RequestMapping("/role")
 public class RoleControllor {
 	@Autowired
 	private RoleService roleservcie;
@@ -48,4 +51,12 @@ public class RoleControllor {
 	 * model.addAttribute("queryProviderId", queryProviderId);
 	 * model.addAttribute("queryIsPayment", queryIsPayment); return "billlist"; }
 	 */
+	//produces设置返回值的编码
+	@RequestMapping(value = "/getRole",method = RequestMethod.GET)
+	@ResponseBody
+	public Object FindAllRole() {
+		//调用业务层中所有用户角色的信息
+		List<Role> role=roleservcie.getRoleList();
+		return JSONArray.toJSONString(role);
+	}
 }

@@ -7,9 +7,9 @@
             <span>用户管理页面 >> 用户修改页面</span>
         </div>
         <div class="providerAdd">
-        <form id="userForm" name="userForm" method="post" action="${pageContext.request.contextPath }/user/userlist.html">
+        <form id="userForm" name="userForm" method="post" action="${pageContext.request.contextPath }/user/usermodify.html">
 			<input type="hidden" name="method" value="modifyexe">
-			<input type="hidden" name="uid" value="${users.id }"/>
+			<input type="hidden" name="id" value="${users.id }"/>
 			 <div>
                     <label for="userName">用户名称：</label>
                     <input type="text" name="userName" id="userName" value="${users.userName }"> 

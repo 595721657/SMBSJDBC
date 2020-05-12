@@ -14,7 +14,7 @@ $(function(){
 	rnewpassword.next().html("*");
 	
 	oldpassword.on("blur",function(){
-		$.ajax({
+		/*$.ajax({
 			type:"GET",
 			url:path+"/jsp/user.do",
 			data:{method:"pwdmodify",oldpassword:oldpassword.val()},
@@ -34,7 +34,7 @@ $(function(){
 				//请求出错
 				validateTip(oldpassword.next(),{"color":"red"},imgNo + " 请求错误",false);
 			}
-		});
+		});*/
 		
 		
 	}).on("focus",function(){

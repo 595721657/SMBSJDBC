@@ -2,7 +2,7 @@ var userObj;
 
 //用户管理页面上点击删除按钮弹出删除框(userlist.jsp)
 function deleteUser(obj){
-	$.ajax({
+/*	$.ajax({
 		type:"GET",
 		url:path+"/jsp/user.do",
 		data:{method:"deluser",uid:obj.attr("userid")},
@@ -23,7 +23,7 @@ function deleteUser(obj){
 			//alert("对不起，删除失败");
 			changeDLGContent("对不起，删除失败");
 		}
-	});
+	});*/
 }
 
 function openYesOrNoDLG(){
@@ -50,13 +50,25 @@ $(function(){
 	$(".viewUser").on("click",function(){
 		//将被绑定的元素（a）转换成jquery对象，可以使用jquery方法
 		var obj = $(this);
-		window.location.href=path+"/jsp/user.do?method=view&uid="+ obj.attr("userid");
+		/*window.location.href=path+"/jsp/user.do?method=view&uid="+ obj.attr("userid");*/
+	   //使用Ajax异步请求查看用户详情
+		$.ajax({
+			type:"GET",
+			url:path+"/user/showInfo",
+			data:{id:obj.attr("userid")},
+			dataType:"JSON",
+			success:function(user){
+				
+			},error:function(e){
+				alert("没有找到 ");
+			}
+		})
 	});
 	
-	$(".modifyUser").on("click",function(){
+	/*$(".modifyUser").on("click",function(){
 		var obj = $(this);
 		window.location.href=path+"/jsp/user.do?method=modify&uid="+ obj.attr("userid");
-	});
+	});*/
 
 	$('#no').click(function () {
 		cancleBtn();
